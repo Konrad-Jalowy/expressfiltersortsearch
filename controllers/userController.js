@@ -21,12 +21,18 @@ exports.notFound = function(req, res){
   }
 
 exports.manualGetAll = catchAsync(async (req, res, next) => {
+    
     let queryObj = { ...req.query };
+
+    const excludedFields = ['page', 'sort', 'limit', 'fields'];
+
+    excludedFields.forEach(el => delete queryObj[el]);
     
     
     return res.json({"msg": "manual get all here",
         "queryObj": queryObj,
-        "query": req.query
+        "query": req.query,
+        "excludedFields": excludedFields,
     });
 });
 
