@@ -21,9 +21,13 @@ exports.notFound = function(req, res){
   }
 
 exports.manualGetAll = catchAsync(async (req, res, next) => {
-    // let _user = await User.findOne({_id: req.params.id});
-    // console.log(_user);
-    return res.json({"msg": "manual get all here"});
+    let queryObj = { ...req.query };
+    
+    
+    return res.json({"msg": "manual get all here",
+        "queryObj": queryObj,
+        "query": req.query
+    });
 });
 
 exports.fluentGetAll = catchAsync(async (req, res, next) => {
