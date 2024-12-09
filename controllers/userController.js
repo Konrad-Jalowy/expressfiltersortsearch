@@ -27,7 +27,6 @@ exports.paramMiddlewareID = async (req, res, next, val) => {
 
 exports.byId = catchAsync(async (req, res, next) => {
     let _user = await User.findOne({_id: req.params.id});
-    console.log(_user);
     return res.json({"user": _user});
 });
 
@@ -50,6 +49,14 @@ exports.manualGetAll = catchAsync(async (req, res, next) => {
     let _shouldPaginate = (_page !== undefined || _limit !== undefined);
     let _shouldSort = (req.query.sort !== undefined);
     let _sortBy = "-createdAt";
+    let _fields = "-__v";
+    console.log(req.query.fields !== undefined)
+
+    if(req.query.fields !== undefined){
+        _fields = req.query.fields.split(',').join(' ');
+    }
+    
+    
 
     excludedFields.forEach(el => delete queryObj[el]);
 
@@ -59,7 +66,11 @@ exports.manualGetAll = catchAsync(async (req, res, next) => {
 
     parsedQueryObj = JSON.parse(queryStr);
     
-    let _query = User.find(parsedQueryObj);
+    let _query = User.find(parsedQueryObj).select(_fields);
+   
+    if(_shouldSort){
+        _sortBy = req.query.sort.split(',').join(' ');
+    }
 
     if(_shouldPaginate){
         const page = _page * 1 || 1;
@@ -68,16 +79,10 @@ exports.manualGetAll = catchAsync(async (req, res, next) => {
         _query = _query.skip(skip).limit(limit);
 
     }
-
-    if(_shouldSort){
-        _sortBy = req.query.sort.split(',').join(' ');
-    }
+    
     _query = _query.sort(_sortBy);
    
     const _users = await _query;
-
-    
-
     
     return res.json({"msg": "manual get all here",
         "queryObj": queryObj,
