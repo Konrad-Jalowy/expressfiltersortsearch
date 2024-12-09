@@ -8,6 +8,13 @@ class BodyValidator {
     //TODO: validate fields, return error-list
 
     _validateField(fieldObj){
+        if(Object.hasOwn(fieldObj, 'required')){
+            if(fieldObj.required === true){
+                if(! Object.hasOwn(this.body, fieldObj.name)){
+                    this.errors.push({field: fieldObj.name, message: `Field ${fieldObj.name} is required`});
+                }
+            }
+        }
         return true;
     }
 
