@@ -9,15 +9,19 @@ exports.main = (req, res) => {
 exports.paramMiddlewareID = async (req, res, next, val) => {
 
     const _validID = ObjectId.isValid(val);
+
     if (! _validID) {
-      console.log("here")
-      return res.status(404).json('Invalid ID');
+      return res.status(404).json({"Error": "Invalid ID"});
     }
+
     let _user = await User.findOne({_id: val});
+
     if(_user === null){
-        return res.status(404).json('User doesnt exist');
+        return res.status(404).json({"Error": "Such user doesnt exist"});
     }
+   
     next();
+    
   };
 
 
