@@ -1,5 +1,6 @@
 const User = require("../models/userModel");
 const catchAsync = require("../catchAsync");
+const FluentAPI = require("../fluentAPI");
 const ObjectId = require('mongoose').Types.ObjectId;
 
 exports.main = (req, res) => {
@@ -56,8 +57,6 @@ exports.manualGetAll = catchAsync(async (req, res, next) => {
         _fields = req.query.fields.split(',').join(' ');
     }
     
-    
-
     excludedFields.forEach(el => delete queryObj[el]);
 
     let queryStr = JSON.stringify(queryObj);
