@@ -27,12 +27,16 @@ exports.manualGetAll = catchAsync(async (req, res, next) => {
     const excludedFields = ['page', 'sort', 'limit', 'fields'];
 
     excludedFields.forEach(el => delete queryObj[el]);
+
+    let queryStr = JSON.stringify(queryObj);
+    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
     
     
     return res.json({"msg": "manual get all here",
         "queryObj": queryObj,
         "query": req.query,
         "excludedFields": excludedFields.join(", "),
+        "queryStr": JSON.parse(queryStr)
     });
 });
 
