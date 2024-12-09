@@ -103,6 +103,11 @@ exports.fluentGetAll = catchAsync(async (req, res, next) => {
     return res.json({"users": _users});
 });
 
+exports.postUserMiddleware = (req, res, next) => {
+    //todo - use body validator class here
+    console.log("post user middleware used");
+    next();
+}
 exports.postUser =  async (req, res) => {
     return res.json({"body": req.body});
 };

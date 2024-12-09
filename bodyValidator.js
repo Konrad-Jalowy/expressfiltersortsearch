@@ -5,6 +5,8 @@ class BodyValidator {
       this.fields = [...fields];
     }
 
+    //TODO: validate fields, return error-list
+
     
 
   }
