@@ -43,7 +43,7 @@ class BodyValidator {
             //no need to validate further
             return;
         }
-        if(Object.hasOwn(fieldObj, 'type')){
+        if(hasSpecifiedType(fieldObj)){
             if(fieldObj.type !== typeof this.body[fieldObj.name]){
                 this._addErrorMessage(fieldObj.name, `Field ${fieldObj.name} must be of type ${fieldObj.type}`)
             }
