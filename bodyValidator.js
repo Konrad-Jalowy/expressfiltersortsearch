@@ -29,15 +29,17 @@ class BodyValidator {
         this.errors.push({field: field, message: message});
     }
 
+    _bodyHas(fieldname){
+        return Object.hasOwn(this.body, fieldname)
+    }
+
     _validateField(fieldObj){
-        if(Object.hasOwn(fieldObj, 'required')){
-            if(fieldObj.required === true){
-                if(! Object.hasOwn(this.body, fieldObj.name)){
+        if(requiredEnabled(fieldObj)){
+            if(!this._bodyHas(fieldObj.name)){
                     this._addErrorMessage(fieldObj.name, `Field ${fieldObj.name} is required`);
-                }
             }
         }
-        if(!Object.hasOwn(this.body, fieldObj.name)){
+        if(!this._bodyHas(fieldObj.name)){
             //no need to validate further
             return;
         }
