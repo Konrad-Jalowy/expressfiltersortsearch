@@ -21,7 +21,7 @@ exports.notFound = function(req, res){
   }
 
 exports.manualGetAll = catchAsync(async (req, res, next) => {
-    
+
     let queryObj = { ...req.query };
 
     const excludedFields = ['page', 'sort', 'limit', 'fields'];
@@ -32,7 +32,7 @@ exports.manualGetAll = catchAsync(async (req, res, next) => {
     return res.json({"msg": "manual get all here",
         "queryObj": queryObj,
         "query": req.query,
-        "excludedFields": excludedFields,
+        "excludedFields": excludedFields.join(", "),
     });
 });
 
