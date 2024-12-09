@@ -72,7 +72,7 @@ exports.manualGetAll = catchAsync(async (req, res, next) => {
     if(_shouldSort){
         _sortBy = req.query.sort.split(',').join(' ');
     }
-    console.log(_sortBy);
+    _query = _query.sort(_sortBy);
    
     const _users = await _query;
 
