@@ -31,3 +31,5 @@ You must learn it yourself, learn the tricks and approaches to common problems, 
 </br>
  So thats what im doing here, still its damn good project for a something done in few hours in language i barely know (when it comes to backend.). Of course i tried to replicate tricks and approaches i learned elsewhere, i always do so (just usually its official docs).
  </br> Anyways, have fun. I had coding it, looks like im beginning to understand basics of node backend.
+
+ EDIT: Btw i forgot one thing this project has also seeding for db. Its in models directory and the command is npm run seed.
