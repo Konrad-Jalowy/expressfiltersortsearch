@@ -1,9 +1,20 @@
 const User = require("../models/userModel");
 const catchAsync = require("../catchAsync");
+const ObjectId = require('mongoose').Types.ObjectId;
 
 exports.main = (req, res) => {
     return res.json({"msg": "main page"});
 }
+
+exports.paramMiddleware = async (req, res, next, val) => {
+
+    const _validID = ObjectId.isValid(val);
+    if (! _validID) {
+      console.log("here")
+      return res.status(404).json('Invalid ID');
+    }
+    next();
+  };
 
 
 exports.byId = catchAsync(async (req, res, next) => {
