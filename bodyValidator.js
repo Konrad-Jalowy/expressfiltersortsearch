@@ -11,6 +11,10 @@ function notEmptyEnabled(fieldObj){
     return fieldObj.notEmpty;
 }
 
+function hasSpecifiedType(fieldObj){
+    return Object.hasOwn(fieldObj, 'type');
+}
+
 
 class BodyValidator {
     constructor(body, fields) {
