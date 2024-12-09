@@ -12,13 +12,14 @@ class BodyValidator {
     }
 
     _validateFields(){
-        for (const element of this.fields) {
-            this._validateField(element);
+        for (const fieldObj of this.fields) {
+            this._validateField(fieldObj);
         }
         return true;
     }
 
     validate(){
+        this._validateFields();
         return this.errors;
     }
 
