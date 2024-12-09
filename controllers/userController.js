@@ -6,12 +6,16 @@ exports.main = (req, res) => {
     return res.json({"msg": "main page"});
 }
 
-exports.paramMiddleware = async (req, res, next, val) => {
+exports.paramMiddlewareID = async (req, res, next, val) => {
 
     const _validID = ObjectId.isValid(val);
     if (! _validID) {
       console.log("here")
       return res.status(404).json('Invalid ID');
+    }
+    let _user = await User.findOne({_id: val});
+    if(_user === null){
+        return res.status(404).json('User doesnt exist');
     }
     next();
   };
