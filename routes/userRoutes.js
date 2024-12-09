@@ -7,6 +7,7 @@ router.get("/", UserController.main);
 router.get("/manual/all", UserController.manualGetAll);
 router.get("/fluent/all", UserController.fluentGetAll);
 router.get("/:id", UserController.byId);
+router.post("/create", UserController.postUser);
 
 
 module.exports = router;

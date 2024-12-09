@@ -89,7 +89,7 @@ exports.manualGetAll = catchAsync(async (req, res, next) => {
 });
 
 exports.fluentGetAll = catchAsync(async (req, res, next) => {
-    
+
     let filter = {};
 
     const features = new FluentAPI(User.find(filter), req.query)
@@ -102,3 +102,7 @@ exports.fluentGetAll = catchAsync(async (req, res, next) => {
 
     return res.json({"users": _users});
 });
+
+exports.postUser =  async (req, res) => {
+    return res.json({"body": req.body});
+};
