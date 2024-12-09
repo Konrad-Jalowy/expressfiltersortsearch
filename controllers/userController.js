@@ -5,6 +5,8 @@ exports.main = (req, res) => {
 }
 
 
-exports.byId = (req, res) => {
-    return res.json({"id": req.params.id});
+exports.byId =  async (req, res) => {
+    let _user = await User.findOne({_id: req.params.id});
+    console.log(_user);
+    return res.json({"user": _user});
 }
