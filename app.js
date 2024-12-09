@@ -5,8 +5,8 @@ const UserController = require('./controllers/userController');
 
 const app = express();
 
-app.use("/", UserRouter);
+app.use("/v1", UserRouter);
 app.use(UserController.errorHandler);
-// app.get('*', UserController.notFound);
+app.get('*', UserController.notFound);
 
 module.exports = app;

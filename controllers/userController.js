@@ -15,3 +15,7 @@ exports.byId =  catchAsync(async (req, res, next) => {
 exports.errorHandler = (err, req, res, next) => {
     res.status(500).json({"Error": "Some kind of error occurred."});
 };
+
+exports.notFound = function(req, res){
+    res.status(404).json({"Error": "Endpoint doesnt exist"});
+  }
