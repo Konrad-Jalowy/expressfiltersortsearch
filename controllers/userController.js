@@ -26,17 +26,31 @@ exports.manualGetAll = catchAsync(async (req, res, next) => {
 
     const excludedFields = ['page', 'sort', 'limit', 'fields'];
 
+    let _page = req.query.page;
+    let _limit = req.query.limit;
+    let _shouldPaginate = (_page !== undefined || _limit !== undefined);
+
     excludedFields.forEach(el => delete queryObj[el]);
 
     let queryStr = JSON.stringify(queryObj);
-    
+
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
 
     parsedQueryObj = JSON.parse(queryStr);
     
-    const _query = User.find(parsedQueryObj);
+    let _query = User.find(parsedQueryObj);
+
+    if(_shouldPaginate){
+        const page = _page * 1 || 1;
+        const limit = _limit * 1 || 5;
+        const skip = (page - 1) * limit;
+        _query = _query.skip(skip).limit(limit);
+
+    }
    
     const _users = await _query;
+
+    
 
     
     return res.json({"msg": "manual get all here",
