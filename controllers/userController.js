@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const catchAsync = require("../catchAsync");
 const FluentAPI = require("../fluentAPI");
+const BodyValidator = require("../bodyValidator");
 const ObjectId = require('mongoose').Types.ObjectId;
 
 exports.main = (req, res) => {
@@ -104,8 +105,21 @@ exports.fluentGetAll = catchAsync(async (req, res, next) => {
 });
 
 exports.postUserMiddleware = (req, res, next) => {
+    const _fields = [
+        {
+        required: true,
+        name: "firstName"
+        },
+        {
+            required: true,
+            name: "lastName"
+        }
+   ];
+    const _validator = new BodyValidator(req.body, _fields)
+    const _errorList = _validator.validate();
     //todo - use body validator class here
     console.log("post user middleware used");
+    console.log(_errorList);
     next();
 }
 exports.postUser =  async (req, res) => {
