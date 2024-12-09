@@ -108,7 +108,8 @@ exports.postUserMiddleware = (req, res, next) => {
     const _fields = [
         {
         required: true,
-        name: "firstName"
+        name: "firstName",
+        type: "string",
         },
         {
             required: true,

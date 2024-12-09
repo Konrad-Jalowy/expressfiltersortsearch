@@ -15,6 +15,11 @@ class BodyValidator {
                 }
             }
         }
+        if(Object.hasOwn(fieldObj, 'type')){
+            if(fieldObj.type !== typeof this.body[fieldObj.name]){
+                this.errors.push({field:fieldObj.name, message: `Field ${fieldObj.name} must be of type ${fieldObj.type}` })
+            }
+        }
         return true;
     }
 
