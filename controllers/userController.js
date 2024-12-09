@@ -91,9 +91,9 @@ exports.manualGetAll = catchAsync(async (req, res, next) => {
 exports.fluentGetAll = catchAsync(async (req, res, next) => {
     let filter = {};
 
-    const features = new FluentAPI(User.find(filter), req.query);
+    const features = new FluentAPI(User.find(filter), req.query).paginate();
 
-    const _users = await features.query
+    const _users = await features.query;
 
     return res.json({"users": _users});
 });
