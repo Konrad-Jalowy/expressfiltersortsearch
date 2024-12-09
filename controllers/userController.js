@@ -21,7 +21,7 @@ exports.paramMiddlewareID = async (req, res, next, val) => {
     }
    
     next();
-    
+
   };
 
 
@@ -48,6 +48,8 @@ exports.manualGetAll = catchAsync(async (req, res, next) => {
     let _page = req.query.page;
     let _limit = req.query.limit;
     let _shouldPaginate = (_page !== undefined || _limit !== undefined);
+    let _shouldSort = (req.query.sort !== undefined);
+    let _sortBy = "-createdAt";
 
     excludedFields.forEach(el => delete queryObj[el]);
 
@@ -66,6 +68,11 @@ exports.manualGetAll = catchAsync(async (req, res, next) => {
         _query = _query.skip(skip).limit(limit);
 
     }
+
+    if(_shouldSort){
+        _sortBy = req.query.sort.split(',').join(' ');
+    }
+    console.log(_sortBy);
    
     const _users = await _query;
 
