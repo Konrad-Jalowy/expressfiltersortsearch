@@ -79,16 +79,12 @@ exports.manualGetAll = catchAsync(async (req, res, next) => {
         _query = _query.skip(skip).limit(limit);
 
     }
-    
+
     _query = _query.sort(_sortBy);
    
     const _users = await _query;
     
     return res.json({"msg": "manual get all here",
-        "queryObj": queryObj,
-        "query": req.query,
-        "excludedFields": excludedFields.join(", "),
-        "queryStr": JSON.parse(queryStr),
         "users": _users
     });
 });
