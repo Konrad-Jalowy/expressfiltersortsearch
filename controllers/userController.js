@@ -110,11 +110,13 @@ exports.postUserMiddleware = (req, res, next) => {
         required: true,
         name: "firstName",
         type: "string",
+        notEmpty: true
         },
         {
             required: true,
             name: "lastName",
             type: "string",
+            notEmpty: true
         }
    ];
     const _validator = new BodyValidator(req.body, _fields)

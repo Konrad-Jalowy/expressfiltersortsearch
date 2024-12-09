@@ -20,6 +20,11 @@ class BodyValidator {
                 this.errors.push({field:fieldObj.name, message: `Field ${fieldObj.name} must be of type ${fieldObj.type}` })
             }
         }
+        if(Object.hasOwn(fieldObj, 'notEmpty')){
+            if(fieldObj.notEmpty === true && (this.body[fieldObj.name] === "" )){
+                this.errors.push({field:fieldObj.name, message: `Field ${fieldObj.name} cant be empty` });
+            }
+        }
         return true;
     }
 
