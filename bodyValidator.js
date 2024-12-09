@@ -25,22 +25,26 @@ class BodyValidator {
 
     //TODO: validate fields, return error-list
 
+    _addErrorMessage(field, message){
+        this.errors.push({field: field, message: message});
+    }
+
     _validateField(fieldObj){
         if(Object.hasOwn(fieldObj, 'required')){
             if(fieldObj.required === true){
                 if(! Object.hasOwn(this.body, fieldObj.name)){
-                    this.errors.push({field: fieldObj.name, message: `Field ${fieldObj.name} is required`});
+                    this._addErrorMessage(fieldObj.name, `Field ${fieldObj.name} is required`);
                 }
             }
         }
         if(Object.hasOwn(fieldObj, 'type')){
             if(fieldObj.type !== typeof this.body[fieldObj.name]){
-                this.errors.push({field:fieldObj.name, message: `Field ${fieldObj.name} must be of type ${fieldObj.type}` })
+                this._addErrorMessage(fieldObj.name, `Field ${fieldObj.name} must be of type ${fieldObj.type}`)
             }
         }
         if(Object.hasOwn(fieldObj, 'notEmpty')){
             if(fieldObj.notEmpty === true && (this.body[fieldObj.name] === "" )){
-                this.errors.push({field:fieldObj.name, message: `Field ${fieldObj.name} cant be empty` });
+                this._addErrorMessage(fieldObj.name,`Field ${fieldObj.name} cant be empty`);
             }
         }
         return true;
