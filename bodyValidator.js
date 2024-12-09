@@ -5,6 +5,12 @@ function requiredEnabled(fieldObj){
     return fieldObj.required;
 }
 
+function notEmptyEnabled(fieldObj){
+    if(!Object.hasOwn(fieldObj, "notEmpty"))
+        return false;
+    return fieldObj.notEmpty;
+}
+
 
 class BodyValidator {
     constructor(body, fields) {
