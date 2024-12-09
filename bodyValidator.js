@@ -1,3 +1,11 @@
+//helper function for clearer code
+function requiredEnabled(fieldObj){
+    if(!Object.hasOwn(fieldObj, "required"))
+        return false;
+    return fieldObj.required;
+}
+
+
 class BodyValidator {
     constructor(body, fields) {
       this.errors = [];
