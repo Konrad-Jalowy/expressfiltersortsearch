@@ -12,6 +12,9 @@ class BodyValidator {
     }
 
     _validateFields(){
+        for (const element of this.fields) {
+            this._validateField(element);
+        }
         return true;
     }
 
