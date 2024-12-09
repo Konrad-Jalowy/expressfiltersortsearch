@@ -20,8 +20,14 @@ exports.notFound = function(req, res){
     res.status(404).json({"Error": "Endpoint doesnt exist"});
   }
 
-  exports.manualGetAll = catchAsync(async (req, res, next) => {
+exports.manualGetAll = catchAsync(async (req, res, next) => {
     // let _user = await User.findOne({_id: req.params.id});
     // console.log(_user);
     return res.json({"msg": "manual get all here"});
+});
+
+exports.fluentGetAll = catchAsync(async (req, res, next) => {
+    // let _user = await User.findOne({_id: req.params.id});
+    // console.log(_user);
+    return res.json({"msg": "fluent get all here"});
 });
