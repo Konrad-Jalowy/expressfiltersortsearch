@@ -75,6 +75,8 @@ class BodyValidator {
             return;
         }
 
+        const _val = this._bodyGet(fieldObj.name);
+
         const _hasSpecifiedType = hasSpecifiedType(fieldObj);
 
         if(_hasSpecifiedType){
@@ -86,7 +88,7 @@ class BodyValidator {
         const _notEmptyEnabled = notEmptyEnabled(fieldObj);
 
         if(_notEmptyEnabled){
-            if(this._bodyGet(fieldObj.name) === "" ){
+            if(_val === "" ){
                 this._addErrorMessage(fieldObj.name,`Field ${fieldObj.name} cant be empty`);
             }
         }
@@ -96,14 +98,13 @@ class BodyValidator {
         if(_hasMinOrMax){
 
             const {min, max} = getMinMax(fieldObj);
-            const _val = this._bodyGet(fieldObj.name);
 
             if((_val > max) || (_val < min) ){
                 const _errMsg = minMaxErrMsg(fieldObj);
                 this._addErrorMessage(fieldObj.name, _errMsg);
                 }
         }
-        
+
         return true;
     }
 
