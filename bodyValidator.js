@@ -72,10 +72,21 @@ class BodyValidator {
         }
 
         const _notEmptyEnabled = notEmptyEnabled(fieldObj);
+
         if(_notEmptyEnabled){
             if(this._bodyGet(fieldObj.name) === "" ){
                 this._addErrorMessage(fieldObj.name,`Field ${fieldObj.name} cant be empty`);
             }
+        }
+
+        const _hasMinOrMax = hasMinOrMax(fieldObj);
+        if(_hasMinOrMax){
+            const {min, max} = getMinMax(fieldObj);
+            const _val = this._bodyGet(fieldObj.name);
+            if( (_val > max) || (_val < min) )
+                {
+                    this._addErrorMessage(fieldObj.name,`Field ${fieldObj.name} too big or too small`);
+                }
         }
         return true;
     }
