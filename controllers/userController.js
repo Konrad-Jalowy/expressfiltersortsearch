@@ -122,6 +122,12 @@ exports.postUserMiddleware = (req, res, next) => {
             required: true,
             name: "age",
             type: "number"
+        },
+        {
+            required: true,
+            name: "cash",
+            min: 0,
+            max:10000
         }
    ];
     const _validator = new BodyValidator(req.body, _fields)
