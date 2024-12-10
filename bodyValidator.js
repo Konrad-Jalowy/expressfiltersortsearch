@@ -16,6 +16,12 @@ function hasSpecifiedType(fieldObj){
 }
 
 
+function getMinMax(fieldObj){
+    const min = Object.hasOwn(fieldObj, "min") ? fieldObj.min : Number.NEGATIVE_INFINITY;
+    const max = Object.hasOwn(fieldObj, "max") ? fieldObj.max : Number.POSITIVE_INFINITY;
+    return {min, max};
+}
+
 class BodyValidator {
     constructor(body, fields) {
       this.errors = [];
