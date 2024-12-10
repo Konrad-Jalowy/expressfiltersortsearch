@@ -92,15 +92,18 @@ class BodyValidator {
         }
 
         const _hasMinOrMax = hasMinOrMax(fieldObj);
+
         if(_hasMinOrMax){
+
             const {min, max} = getMinMax(fieldObj);
             const _val = this._bodyGet(fieldObj.name);
-            if( (_val > max) || (_val < min) )
-                {
-                    const _errMsg = minMaxErrMsg(fieldObj);
-                    this._addErrorMessage(fieldObj.name, _errMsg);
+
+            if((_val > max) || (_val < min) ){
+                const _errMsg = minMaxErrMsg(fieldObj);
+                this._addErrorMessage(fieldObj.name, _errMsg);
                 }
         }
+        
         return true;
     }
 
