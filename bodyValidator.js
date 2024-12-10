@@ -15,6 +15,18 @@ function hasSpecifiedType(fieldObj){
     return Object.hasOwn(fieldObj, 'type');
 }
 
+function minMaxErrMsg(fieldObj){
+    if(Object.hasOwn(fieldObj, "min") && Object.hasOwn(fieldObj, "max")){
+        return `Field ${fieldObj.name} must be >= ${fieldObj.min} and <= ${fieldObj.max}`;
+    }
+    if(Object.hasOwn(fieldObj, "min") && !Object.hasOwn(fieldObj, "max")){
+        return `Field ${fieldObj.name} must be >= ${fieldObj.min}`;
+    }
+    if(!Object.hasOwn(fieldObj, "min") && Object.hasOwn(fieldObj, "max")){
+        return `Field ${fieldObj.name} must be <= ${fieldObj.max}`;
+    }
+}
+
 
 function getMinMax(fieldObj){
     const min = Object.hasOwn(fieldObj, "min") ? fieldObj.min : Number.NEGATIVE_INFINITY;
@@ -85,7 +97,8 @@ class BodyValidator {
             const _val = this._bodyGet(fieldObj.name);
             if( (_val > max) || (_val < min) )
                 {
-                    this._addErrorMessage(fieldObj.name,`Field ${fieldObj.name} too big or too small`);
+                    const _errMsg = minMaxErrMsg(fieldObj);
+                    this._addErrorMessage(fieldObj.name, _errMsg);
                 }
         }
         return true;
