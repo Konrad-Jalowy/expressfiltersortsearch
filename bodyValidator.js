@@ -33,23 +33,37 @@ class BodyValidator {
         return Object.hasOwn(this.body, fieldname)
     }
 
+    _bodyGet(fieldname){
+        return this.body[fieldname];
+    }
+
     _validateField(fieldObj){
-        if(requiredEnabled(fieldObj)){
-            if(!this._bodyHas(fieldObj.name)){
+
+        const _requiredEnabled = requiredEnabled(fieldObj);
+        const _bodyHasThisField = this._bodyHas(fieldObj.name);
+
+        if(_requiredEnabled){
+            if(!_bodyHasThisField){
                     this._addErrorMessage(fieldObj.name, `Field ${fieldObj.name} is required`);
             }
         }
-        if(!this._bodyHas(fieldObj.name)){
+
+        if(!_bodyHasThisField){
             //no need to validate further
             return;
         }
-        if(hasSpecifiedType(fieldObj)){
+
+        const _hasSpecifiedType = hasSpecifiedType(fieldObj);
+
+        if(_hasSpecifiedType){
             if(fieldObj.type !== typeof this.body[fieldObj.name]){
                 this._addErrorMessage(fieldObj.name, `Field ${fieldObj.name} must be of type ${fieldObj.type}`)
             }
         }
-        if(notEmptyEnabled(fieldObj)){
-            if(this.body[fieldObj.name] === "" ){
+
+        const _notEmptyEnabled = notEmptyEnabled(fieldObj);
+        if(_notEmptyEnabled){
+            if(this._bodyGet(fieldObj.name) === "" ){
                 this._addErrorMessage(fieldObj.name,`Field ${fieldObj.name} cant be empty`);
             }
         }
