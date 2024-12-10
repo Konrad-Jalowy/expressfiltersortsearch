@@ -59,6 +59,14 @@ class BodyValidator {
         return this.body[fieldname];
     }
 
+    _defaultCheck(fieldObj){
+        if(!Object.hasOwn(fieldObj, "default"))
+            return;
+        if(this._bodyHas(fieldObj.name))
+            return;
+        this.body[fieldObj.name] = fieldObj.default;
+    }
+
     _validateField(fieldObj){
 
         const _requiredEnabled = requiredEnabled(fieldObj);
@@ -110,6 +118,7 @@ class BodyValidator {
 
     _validateFields(){
         for (const fieldObj of this.fields) {
+            this._defaultCheck(fieldObj);
             this._validateField(fieldObj);
         }
         return true;
