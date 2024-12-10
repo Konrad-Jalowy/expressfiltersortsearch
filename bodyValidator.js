@@ -22,6 +22,10 @@ function getMinMax(fieldObj){
     return {min, max};
 }
 
+function hasMinOrMax(fieldObj){
+    return Object.hasOwn(fieldObj, "min") || Object.hasOwn(fieldObj, "max");
+}
+
 class BodyValidator {
     constructor(body, fields) {
       this.errors = [];
